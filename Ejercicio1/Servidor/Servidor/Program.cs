@@ -14,9 +14,8 @@ namespace Servidor
     {
         public void Run()
         {
-            Console.WriteLine("A ver ");
             String cadena_rec = "";
-            byte[] bytes_rec = new byte[1024];
+            byte[] bytes_rec = new byte[512];
             TcpListener listener = null;
 
             try
@@ -38,14 +37,11 @@ namespace Servidor
 
                 try
                 {
-                    Console.WriteLine("A ver 2");
                     client = listener.AcceptTcpClient();
-                    Console.WriteLine("A ver 3");
+
                     netStream = client.GetStream();
 
                     netStream.Read(bytes_rec, 0, bytes_rec.Length);
-
-                    Console.WriteLine("Lognitud: " + bytes_rec.Length);
 
                     using (MemoryStream ms = new MemoryStream(bytes_rec))
                     using (BinaryReader reader = new BinaryReader(ms))

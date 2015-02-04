@@ -25,6 +25,7 @@ namespace Cliente
 
                 netStream = client.GetStream();
 
+                //Codificacion, se convierte la cadena de String a byte[]
                 using (MemoryStream ms = new MemoryStream())
                 using (BinaryWriter writer = new BinaryWriter(ms))
                 {
