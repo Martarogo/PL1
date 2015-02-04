@@ -8,23 +8,27 @@ namespace EchoVocabulary
 {
     class EchoMessage
     {
-        private String _mensaje;
+        private String _message;
+        private String _date;
+        private String _EchoMessage;
 
-        public String mensaje
+        public String message
         {
             get
             {
-                return _mensaje;
+                return _EchoMessage;
             }
             set
             {
-                _mensaje = value;
+                _EchoMessage = value;
             }
         }
 
         public EchoMessage(String msg)
         {
-            _mensaje = msg;
+            _message = msg;
+            _date = DateTime.Now.ToString("MM/dd/yyyy h:mm:ss.fff");
+            _EchoMessage = msg + " " + _date;
         }
 
 
