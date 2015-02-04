@@ -4,30 +4,31 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EchoVocabulary;
 
 public interface ICodec
 {
-
+    byte[] Encode(EchoMessage message);
+    EchoMessage Decode(byte[] array);
 }
-
 
 namespace EchoVocabulary
 {
-    class BinaryEchoMessageCodec
+    public class BinaryEchoMessageCodec: ICodec
     {
-        public byte[] codificacion(String msg)
+        public byte[] Encode(EchoMessage message)
         {
             using (MemoryStream ms = new MemoryStream())
             using (BinaryWriter writer = new BinaryWriter(ms))
             {
-                writer.Write(msg);
+                writer.Write(message.Message);
 
                 writer.Flush();
                 return ms.ToArray();
             }
         }
 
-        public String decodificacion(byte[] array)
+        public String Decode(byte[] array)
         {
             using (MemoryStream ms = new MemoryStream(array))
             using (BinaryReader reader = new BinaryReader(ms))
