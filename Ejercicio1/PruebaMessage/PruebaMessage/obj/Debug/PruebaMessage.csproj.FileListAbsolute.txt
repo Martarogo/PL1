@@ -1,0 +1,8 @@
+C:\Users\Marco\Dropbox\Universidad\4º\2º semestre\Aplicaciones\PL1\Ejercicios\Ejercicio1\PruebaMessage\PruebaMessage\bin\Debug\PruebaMessage.exe.config
+C:\Users\Marco\Dropbox\Universidad\4º\2º semestre\Aplicaciones\PL1\Ejercicios\Ejercicio1\PruebaMessage\PruebaMessage\obj\Debug\PruebaMessage.csprojResolveAssemblyReference.cache
+C:\Users\Marco\Dropbox\Universidad\4º\2º semestre\Aplicaciones\PL1\Ejercicios\Ejercicio1\PruebaMessage\PruebaMessage\bin\Debug\PruebaMessage.exe
+C:\Users\Marco\Dropbox\Universidad\4º\2º semestre\Aplicaciones\PL1\Ejercicios\Ejercicio1\PruebaMessage\PruebaMessage\bin\Debug\PruebaMessage.pdb
+C:\Users\Marco\Dropbox\Universidad\4º\2º semestre\Aplicaciones\PL1\Ejercicios\Ejercicio1\PruebaMessage\PruebaMessage\bin\Debug\EchoVocabulary.dll
+C:\Users\Marco\Dropbox\Universidad\4º\2º semestre\Aplicaciones\PL1\Ejercicios\Ejercicio1\PruebaMessage\PruebaMessage\bin\Debug\EchoVocabulary.pdb
+C:\Users\Marco\Dropbox\Universidad\4º\2º semestre\Aplicaciones\PL1\Ejercicios\Ejercicio1\PruebaMessage\PruebaMessage\obj\Debug\PruebaMessage.exe
+C:\Users\Marco\Dropbox\Universidad\4º\2º semestre\Aplicaciones\PL1\Ejercicios\Ejercicio1\PruebaMessage\PruebaMessage\obj\Debug\PruebaMessage.pdb

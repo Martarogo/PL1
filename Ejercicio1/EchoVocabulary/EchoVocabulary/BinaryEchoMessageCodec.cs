@@ -5,6 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+public interface ICodec
+{
+
+}
+
+
 namespace EchoVocabulary
 {
     class BinaryEchoMessageCodec

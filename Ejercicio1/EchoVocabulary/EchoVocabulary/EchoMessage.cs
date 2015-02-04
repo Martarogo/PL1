@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EchoVocabulary
 {
-    class EchoMessage
+    public class EchoMessage
     {
         private String _message;
         private String _date;
@@ -16,11 +16,23 @@ namespace EchoVocabulary
         {
             get
             {
-                return _EchoMessage;
+                return _message;
             }
-            set
+        }
+
+        public String date
+        {
+            get
             {
-                _EchoMessage = value;
+                return _date;
+            }
+        }
+
+        public String Message
+        {
+            get
+            {
+                return _EchoMessage;
             }
         }
 
