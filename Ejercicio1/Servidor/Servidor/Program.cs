@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using EchoVocabulary;
 
 namespace Servidor
 {
@@ -34,6 +35,7 @@ namespace Servidor
             {
                 TcpClient client = null;
                 NetworkStream netStream = null;
+                BinaryEchoMessageCodec encoding = new BinaryEchoMessageCodec();
 
                 try
                 {
@@ -43,11 +45,9 @@ namespace Servidor
 
                     netStream.Read(bytes_rec, 0, bytes_rec.Length);
 
-                    using (MemoryStream ms = new MemoryStream(bytes_rec))
-                    using (BinaryReader reader = new BinaryReader(ms))
-                    {
-                        cadena_rec = reader.ReadString();
-                    }
+                    cadena_rec = encoding.Decode(bytes_rec);
+
+                    Console.WriteLine("Cadena recibida: " + cadena_rec);
 
                     netStream.Close();
                     client.Close();

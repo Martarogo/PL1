@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using EchoVocabulary;
 
 namespace Cliente
 {
@@ -13,29 +14,24 @@ namespace Cliente
     {
         public void Run()
         {
-            String cadena = "hola";
-            Console.WriteLine("Cadena enviada: " + cadena);
             byte[] bytes_cadena;
 
             TcpClient client = null;
             NetworkStream netStream = null;
+            BinaryEchoMessageCodec encoding = new BinaryEchoMessageCodec();
+
             try
             {
                 client = new TcpClient("localhost", 23456);
 
                 netStream = client.GetStream();
 
-                //Codificacion, se convierte la cadena de String a byte[]
-                using (MemoryStream ms = new MemoryStream())
-                using (BinaryWriter writer = new BinaryWriter(ms))
-                {
-                    writer.Write(cadena);
+                String cadena = "hola";
+                Console.WriteLine("Cadena enviada: " + cadena);
 
-                    writer.Flush();
-                    bytes_cadena = ms.ToArray();
-                }
+                EchoMessage mensaje = new EchoMessage(cadena);
 
-                Console.WriteLine("Lognitud: " + bytes_cadena.Length);
+                bytes_cadena = encoding.Encode(mensaje);
 
                 netStream.Write(bytes_cadena, 0, bytes_cadena.Length);
             }
