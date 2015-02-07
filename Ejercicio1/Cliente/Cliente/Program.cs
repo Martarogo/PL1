@@ -21,7 +21,7 @@ namespace Cliente
             NetworkStream netStream = null;
             BinaryEchoMessageCodec encoding = new BinaryEchoMessageCodec();
             CharEchoMessageCodec char_encoding = new CharEchoMessageCodec();
-
+            
             try
             {
                 client = new TcpClient("localhost", 23456);
@@ -55,9 +55,34 @@ namespace Cliente
 
                     netStream.Write(bytes_cadena_codif, 0, bytes_cadena_codif.Length);
 
-                    netStream.Read(bytes_rec, 0, bytes_rec.Length);
+                    try
+                    {
+                        client.ReceiveTimeout = 1000;
 
-                    cadena_rec = encoding.Decode(bytes_rec);
+                        netStream.Read(bytes_rec, 0, bytes_rec.Length);
+
+                        cadena_rec = encoding.Decode(bytes_rec);
+                    }
+                    catch (Exception e) 
+                    {
+                        if (e.InnerException != null)
+                        {
+                            if (e.InnerException is SocketException)
+                            {
+                                SocketException se = (SocketException)e.InnerException;
+                                if (se.SocketErrorCode == SocketError.TimedOut) {
+                                    Console.WriteLine("Ha expirado el temporizador");
+                                }
+                                else {
+                                    Console.WriteLine("Error: " + se.Message);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Error: " + e.Message);
+                        }
+                    }
                 }
                 else if (codif.Equals("2"))
                 {
@@ -72,9 +97,36 @@ namespace Cliente
 
                     netStream.Write(bytes_cadena_codif, 0, bytes_cadena_codif.Length);
 
-                    netStream.Read(bytes_rec, 0, bytes_rec.Length);
+                    try
+                    {
+                        client.ReceiveTimeout = 1000;
 
-                    cadena_rec = char_encoding.Decode(bytes_rec);
+                        netStream.Read(bytes_rec, 0, bytes_rec.Length);
+
+                        cadena_rec = encoding.Decode(bytes_rec);
+                    }
+                    catch (Exception e)
+                    {
+                        if (e.InnerException != null)
+                        {
+                            if (e.InnerException is SocketException)
+                            {
+                                SocketException se = (SocketException)e.InnerException;
+                                if (se.SocketErrorCode == SocketError.TimedOut)
+                                {
+                                    Console.WriteLine("Ha expirado el temporizador");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Error: " + se.Message);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Error: " + e.Message);
+                        }
+                    }
                 }
                 Console.WriteLine("Cadena reenviada por el servidor: " + cadena_rec);
             }
