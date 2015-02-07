@@ -5,3 +5,5 @@ C:\Users\Marco\Dropbox\Universidad\4º\2º semestre\Aplicaciones\PL1\Ejercicios\
 C:\Users\Marco\Dropbox\Universidad\4º\2º semestre\Aplicaciones\PL1\Ejercicios\Ejercicio1\Servidor\Servidor\bin\Debug\Servidor.pdb
 C:\Users\Marco\Dropbox\Universidad\4º\2º semestre\Aplicaciones\PL1\Ejercicios\Ejercicio1\Servidor\Servidor\obj\Debug\Servidor.exe
 C:\Users\Marco\Dropbox\Universidad\4º\2º semestre\Aplicaciones\PL1\Ejercicios\Ejercicio1\Servidor\Servidor\obj\Debug\Servidor.pdb
+C:\Users\Marco\Dropbox\Universidad\4º\2º semestre\Aplicaciones\PL1\Ejercicios\Ejercicio1\Servidor\Servidor\bin\Debug\EchoVocabulary.dll
+C:\Users\Marco\Dropbox\Universidad\4º\2º semestre\Aplicaciones\PL1\Ejercicios\Ejercicio1\Servidor\Servidor\bin\Debug\EchoVocabulary.pdb

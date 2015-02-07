@@ -9,13 +9,17 @@ using EchoVocabulary;
 public interface ICodec
 {
     byte[] Encode(EchoMessage message);
-    EchoMessage Decode(byte[] array);
+    String Decode(byte[] array);
 }
 
 namespace EchoVocabulary
 {
     public class BinaryEchoMessageCodec: ICodec
     {
+        public BinaryEchoMessageCodec()
+        {
+
+        }
         public byte[] Encode(EchoMessage message)
         {
             using (MemoryStream ms = new MemoryStream())

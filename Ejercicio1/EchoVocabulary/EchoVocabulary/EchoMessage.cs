@@ -42,7 +42,5 @@ namespace EchoVocabulary
             _date = DateTime.Now.ToString("MM/dd/yyyy h:mm:ss.fff");
             _EchoMessage = msg + " " + _date;
         }
-
-
     }
 }

@@ -15,6 +15,7 @@ namespace Servidor
     {
         public void Run()
         {
+            Console.WriteLine("Servidor en ejecución");
             String cadena_rec = "";
             byte[] bytes_rec = new byte[512];
             TcpListener listener = null;
