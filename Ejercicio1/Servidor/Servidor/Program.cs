@@ -83,7 +83,7 @@ namespace Servidor
                         EchoMessage mensaje = new EchoMessage(mensaje_rec[0]);
 
                         Console.WriteLine("Cadena reenviada al cliente: " + mensaje.Message);
-                        Console.WriteLine("Bb?");
+                        
                         bytes_cadena = char_encoding.Encode(mensaje);
 
                         netStream.Write(bytes_cadena, 0, bytes_cadena.Length);
