@@ -14,12 +14,13 @@ namespace Cliente
     {
         public void Run()
         {
-            byte[] bytes_cadena;
+            byte[] bytes_cadena, bytes_cadena_codif;
             byte[] bytes_rec = new byte[512];
-            String cadena_rec;
+            String cadena_rec = "";
             TcpClient client = null;
             NetworkStream netStream = null;
             BinaryEchoMessageCodec encoding = new BinaryEchoMessageCodec();
+            CharEchoMessageCodec char_encoding = new CharEchoMessageCodec();
 
             try
             {
@@ -39,37 +40,43 @@ namespace Cliente
                     codif = Console.ReadLine();
                 }
 
-                cadena = cadena.Insert(0, codif);
-
-                //char asdf = cadena[0];
-
-                //cadena = cadena.Remove(0,1);
-
                 EchoMessage mensaje = new EchoMessage(cadena);
-                Console.WriteLine("\nCadena enviada: " + mensaje.Message + "\n");   
 
                 if (codif.Equals("1"))
                 {
+                    Console.WriteLine("Se ha escogido la codificacion binaria.\n\nCadena enviada: " + mensaje.Message + "\n");  
+
                     bytes_cadena = encoding.Encode(mensaje);
 
-                    byte[] bytes_codif = new byte[bytes_cadena.Length + 1];
+                    bytes_cadena_codif = new byte[bytes_cadena.Length + 1];
                     
-                    bytes_cadena.CopyTo(bytes_codif, 1);
-                    bytes_codif[0] = 1;
+                    bytes_cadena.CopyTo(bytes_cadena_codif, 1);
+                    bytes_cadena_codif[0] = 1;
 
-                    netStream.Write(bytes_codif, 0, bytes_codif.Length);
+                    netStream.Write(bytes_cadena_codif, 0, bytes_cadena_codif.Length);
 
                     netStream.Read(bytes_rec, 0, bytes_rec.Length);
 
                     cadena_rec = encoding.Decode(bytes_rec);
-
-                    Console.WriteLine("\nCadena reenviada por el servidor: " + cadena_rec);
                 }
                 else if (codif.Equals("2"))
                 {
+                    Console.WriteLine("Se ha escogido la codificacion como texto.\n\nCadena enviada: " + mensaje.Message + "\n");  
 
+                    bytes_cadena = char_encoding.Encode(mensaje);
+
+                    bytes_cadena_codif = new byte[bytes_cadena.Length + 1];
+
+                    bytes_cadena.CopyTo(bytes_cadena_codif, 1);
+                    bytes_cadena_codif[0] = 2;
+
+                    netStream.Write(bytes_cadena_codif, 0, bytes_cadena_codif.Length);
+
+                    netStream.Read(bytes_rec, 0, bytes_rec.Length);
+
+                    cadena_rec = char_encoding.Decode(bytes_rec);
                 }
-                
+                Console.WriteLine("\nCadena reenviada por el servidor: " + cadena_rec);
             }
             catch (Exception e)
             {
