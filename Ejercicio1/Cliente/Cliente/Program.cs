@@ -27,20 +27,49 @@ namespace Cliente
 
                 netStream = client.GetStream();
 
-                String cadena = "jeje";
+                Console.WriteLine("Escribe el texto que quieres enviar: ");
+                String cadena = Console.ReadLine();
+
+                Console.WriteLine("¿Que codificacion quieres utilizar? Escoge 1 o 2:\n1. Codificacion binaria\n2. Codificacion como texto");
+                String codif = Console.ReadLine();
+
+                while (!(codif.Equals("1")) && !(codif.Equals("2")))
+                {
+                    Console.WriteLine("Por favor, introduce '1' o '2'");
+                    codif = Console.ReadLine();
+                }
+
+                cadena = cadena.Insert(0, codif);
+
+                //char asdf = cadena[0];
+
+                //cadena = cadena.Remove(0,1);
 
                 EchoMessage mensaje = new EchoMessage(cadena);
-                Console.WriteLine("Cadena enviada: " + mensaje.Message);
+                Console.WriteLine("\nCadena enviada: " + mensaje.Message + "\n");   
 
-                bytes_cadena = encoding.Encode(mensaje);
+                if (codif.Equals("1"))
+                {
+                    bytes_cadena = encoding.Encode(mensaje);
 
-                netStream.Write(bytes_cadena, 0, bytes_cadena.Length);
+                    byte[] bytes_codif = new byte[bytes_cadena.Length + 1];
+                    
+                    bytes_cadena.CopyTo(bytes_codif, 1);
+                    bytes_codif[0] = 1;
 
-                netStream.Read(bytes_rec, 0, bytes_rec.Length);
+                    netStream.Write(bytes_codif, 0, bytes_codif.Length);
 
-                cadena_rec = encoding.Decode(bytes_rec);
+                    netStream.Read(bytes_rec, 0, bytes_rec.Length);
 
-                Console.WriteLine("Cadena reenviada por el servidor: " + cadena_rec);
+                    cadena_rec = encoding.Decode(bytes_rec);
+
+                    Console.WriteLine("\nCadena reenviada por el servidor: " + cadena_rec);
+                }
+                else if (codif.Equals("2"))
+                {
+
+                }
+                
             }
             catch (Exception e)
             {

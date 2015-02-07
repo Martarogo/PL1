@@ -47,19 +47,25 @@ namespace Servidor
 
                     netStream.Read(bytes_rec, 0, bytes_rec.Length);
 
-                    cadena_rec = encoding.Decode(bytes_rec);
+                    if (bytes_rec[0] == 1)
+                    {
+                        cadena_rec = encoding.Decode(bytes_rec);
 
-                    Console.WriteLine("Cadena recibida: " + cadena_rec);
+                        bytes_rec.
 
-                    String[] separador = {" | "};
-                    String[] mensaje_rec = cadena_rec.Split(separador, StringSplitOptions.RemoveEmptyEntries);
+                        Console.WriteLine("Cadena recibida: " + cadena_rec);
 
-                    EchoMessage mensaje = new EchoMessage(mensaje_rec[0]);
-                    Console.WriteLine("Cadena reenviada: " + mensaje.Message);
+                        String[] separador = { " | " };
+                        String[] mensaje_rec = cadena_rec.Split(separador, StringSplitOptions.RemoveEmptyEntries);
 
-                    bytes_cadena = encoding.Encode(mensaje);
+                        EchoMessage mensaje = new EchoMessage(mensaje_rec[0]);
+                        Console.WriteLine("Cadena reenviada: " + mensaje.Message);
 
-                    netStream.Write(bytes_cadena, 0, bytes_cadena.Length);
+                        bytes_cadena = encoding.Encode(mensaje);
+
+                        netStream.Write(bytes_cadena, 0, bytes_cadena.Length);
+                    }
+                    
 
                     netStream.Close();
                     client.Close();
