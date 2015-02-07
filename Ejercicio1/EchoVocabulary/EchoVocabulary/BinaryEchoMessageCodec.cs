@@ -16,10 +16,6 @@ namespace EchoVocabulary
 {
     public class BinaryEchoMessageCodec: ICodec
     {
-        public BinaryEchoMessageCodec()
-        {
-
-        }
         public byte[] Encode(EchoMessage message)
         {
             using (MemoryStream ms = new MemoryStream())

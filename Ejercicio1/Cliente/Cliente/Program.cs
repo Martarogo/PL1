@@ -15,7 +15,8 @@ namespace Cliente
         public void Run()
         {
             byte[] bytes_cadena;
-
+            byte[] bytes_rec = new byte[512];
+            String cadena_rec;
             TcpClient client = null;
             NetworkStream netStream = null;
             BinaryEchoMessageCodec encoding = new BinaryEchoMessageCodec();
@@ -26,14 +27,20 @@ namespace Cliente
 
                 netStream = client.GetStream();
 
-                String cadena = "hola";
-                Console.WriteLine("Cadena enviada: " + cadena);
+                String cadena = "jeje";
 
                 EchoMessage mensaje = new EchoMessage(cadena);
+                Console.WriteLine("Cadena enviada: " + mensaje.Message);
 
                 bytes_cadena = encoding.Encode(mensaje);
 
                 netStream.Write(bytes_cadena, 0, bytes_cadena.Length);
+
+                netStream.Read(bytes_rec, 0, bytes_rec.Length);
+
+                cadena_rec = encoding.Decode(bytes_rec);
+
+                Console.WriteLine("Cadena reenviada por el servidor: " + cadena_rec);
             }
             catch (Exception e)
             {
@@ -44,6 +51,7 @@ namespace Cliente
                 netStream.Close();
                 client.Close();
             }
+            Console.ReadKey();
         }
     }
 
@@ -52,7 +60,7 @@ namespace Cliente
     {
         static void Main(string[] args)
         {
-            const int N = 100;
+            const int N = 1;
 
             // Se crean los hilos
             Thread[] threads = new Thread[N];

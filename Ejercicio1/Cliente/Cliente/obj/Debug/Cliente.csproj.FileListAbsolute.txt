@@ -4,3 +4,5 @@ C:\Users\Marco\Dropbox\Universidad\4º\2º semestre\Aplicaciones\PL1\Ejercicios\
 C:\Users\Marco\Dropbox\Universidad\4º\2º semestre\Aplicaciones\PL1\Ejercicios\Ejercicio1\Cliente\Cliente\obj\Debug\Cliente.exe
 C:\Users\Marco\Dropbox\Universidad\4º\2º semestre\Aplicaciones\PL1\Ejercicios\Ejercicio1\Cliente\Cliente\obj\Debug\Cliente.pdb
 C:\Users\Marco\Dropbox\Universidad\4º\2º semestre\Aplicaciones\PL1\Ejercicios\Ejercicio1\Cliente\Cliente\obj\Debug\Cliente.csprojResolveAssemblyReference.cache
+C:\Users\Marco\Dropbox\Universidad\4º\2º semestre\Aplicaciones\PL1\Ejercicios\Ejercicio1\Cliente\Cliente\bin\Debug\EchoVocabulary.dll
+C:\Users\Marco\Dropbox\Universidad\4º\2º semestre\Aplicaciones\PL1\Ejercicios\Ejercicio1\Cliente\Cliente\bin\Debug\EchoVocabulary.pdb

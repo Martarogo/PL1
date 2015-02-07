@@ -40,7 +40,7 @@ namespace EchoVocabulary
         {
             _message = msg;
             _date = DateTime.Now.ToString("MM/dd/yyyy h:mm:ss.fff");
-            _EchoMessage = msg + " " + _date;
+            _EchoMessage = msg + " | " + _date;
         }
     }
 }

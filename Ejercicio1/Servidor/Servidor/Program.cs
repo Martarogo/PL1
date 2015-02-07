@@ -15,8 +15,9 @@ namespace Servidor
     {
         public void Run()
         {
-            Console.WriteLine("Servidor en ejecución");
+            Console.WriteLine("Servidor en ejecución...");
             String cadena_rec = "";
+            byte[] bytes_cadena;
             byte[] bytes_rec = new byte[512];
             TcpListener listener = null;
 
@@ -50,6 +51,16 @@ namespace Servidor
 
                     Console.WriteLine("Cadena recibida: " + cadena_rec);
 
+                    String[] separador = {" | "};
+                    String[] mensaje_rec = cadena_rec.Split(separador, StringSplitOptions.RemoveEmptyEntries);
+
+                    EchoMessage mensaje = new EchoMessage(mensaje_rec[0]);
+                    Console.WriteLine("Cadena reenviada: " + mensaje.Message);
+
+                    bytes_cadena = encoding.Encode(mensaje);
+
+                    netStream.Write(bytes_cadena, 0, bytes_cadena.Length);
+
                     netStream.Close();
                     client.Close();
                 }
@@ -58,7 +69,7 @@ namespace Servidor
                     Console.WriteLine("Exception: {0}", e.Message);
                     netStream.Close();
                 }
-                Console.WriteLine("Cadena recibida: " + cadena_rec);
+                
             }
         }
     }
