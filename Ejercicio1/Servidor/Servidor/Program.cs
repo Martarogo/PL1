@@ -17,8 +17,8 @@ namespace Servidor
         {
             Console.WriteLine("Servidor en ejecución...");
             String cadena_rec = "";
-            byte[] bytes_cadena;
-            byte[] bytes_rec = new byte[256];
+            String[] separador = { " | " }, mensaje_rec;
+            byte[] bytes_cadena, bytes_rec = new byte[256];
             byte codif;
             TcpListener listener = null;
             BinaryEchoMessageCodec encoding = new BinaryEchoMessageCodec();
@@ -51,10 +51,6 @@ namespace Servidor
 
                     /* El primer byte del array de bytes recibido indica la codificacion escogida por el cliente. Por lo tanto,
                      * la cadena de texto se encuentra a partir del elemento 1 */
-                    /*for (int i = 0; i < bytes_rec2.Length - 1; i++)
-                    {
-                        bytes_rec2[i] = bytes_rec[i + 1];
-                    }*/
                     codif = bytes_rec[0];
                     for (int i = 0; i < bytes_rec.Length-1; i++)
                     {
@@ -65,35 +61,33 @@ namespace Servidor
                     {
                         cadena_rec = encoding.Decode(bytes_rec);
 
-                        Console.WriteLine("Cadena recibida 1: " + cadena_rec);
-
-                        String[] separador = { " | " };
-                        String[] mensaje_rec = cadena_rec.Split(separador, StringSplitOptions.RemoveEmptyEntries);
+                        Console.WriteLine("\n\nEl cliente ha escogido codificacion binaria.\n\nCadena recibida: " + cadena_rec);
+                        
+                        mensaje_rec = cadena_rec.Split(separador, StringSplitOptions.RemoveEmptyEntries);
 
                         EchoMessage mensaje = new EchoMessage(mensaje_rec[0]);
-                        Console.WriteLine("Cadena reenviada 1: " + mensaje.Message);
+                        Console.WriteLine("Cadena reenviada al cliente: " + mensaje.Message);
 
                         bytes_cadena = encoding.Encode(mensaje);
 
                         netStream.Write(bytes_cadena, 0, bytes_cadena.Length);
                     }
                     else if (codif == 2)
-                    {
+                    {                    
                         cadena_rec = char_encoding.Decode(bytes_rec);
-
-                        Console.WriteLine("Cadena recibida 2: " + cadena_rec);
-
-                        String[] separador = { " | " };
-                        String[] mensaje_rec = cadena_rec.Split(separador, StringSplitOptions.RemoveEmptyEntries);
+                        
+                        Console.WriteLine("\n\nEl cliente ha escogido codificacion como texto.\n\nCadena recibida: " + cadena_rec);
+                        
+                        mensaje_rec = cadena_rec.Split(separador, StringSplitOptions.RemoveEmptyEntries);
 
                         EchoMessage mensaje = new EchoMessage(mensaje_rec[0]);
-                        Console.WriteLine("Cadena reenviada 2: " + mensaje.Message);
+
+                        Console.WriteLine("Cadena reenviada al cliente: " + mensaje.Message);
 
                         bytes_cadena = char_encoding.Encode(mensaje);
 
                         netStream.Write(bytes_cadena, 0, bytes_cadena.Length);
                     }
-                    
 
                     netStream.Close();
                     client.Close();

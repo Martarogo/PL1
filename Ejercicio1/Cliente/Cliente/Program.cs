@@ -31,7 +31,7 @@ namespace Cliente
                 Console.WriteLine("Escribe el texto que quieres enviar: ");
                 String cadena = Console.ReadLine();
 
-                Console.WriteLine("¿Que codificacion quieres utilizar? Escoge 1 o 2:\n1. Codificacion binaria\n2. Codificacion como texto");
+                Console.WriteLine("\n¿Que codificacion quieres utilizar? Escoge 1 o 2:\n1. Codificacion binaria\n2. Codificacion como texto");
                 String codif = Console.ReadLine();
 
                 while (!(codif.Equals("1")) && !(codif.Equals("2")))
@@ -44,7 +44,7 @@ namespace Cliente
 
                 if (codif.Equals("1"))
                 {
-                    Console.WriteLine("Se ha escogido la codificacion binaria.\n\nCadena enviada: " + mensaje.Message + "\n");  
+                    Console.WriteLine("\nSe ha escogido la codificacion binaria.\n\nCadena enviada: " + mensaje.Message);  
 
                     bytes_cadena = encoding.Encode(mensaje);
 
@@ -61,7 +61,7 @@ namespace Cliente
                 }
                 else if (codif.Equals("2"))
                 {
-                    Console.WriteLine("Se ha escogido la codificacion como texto.\n\nCadena enviada: " + mensaje.Message + "\n");  
+                    Console.WriteLine("\nSe ha escogido la codificacion como texto.\n\nCadena enviada: " + mensaje.Message);  
 
                     bytes_cadena = char_encoding.Encode(mensaje);
 
@@ -76,7 +76,7 @@ namespace Cliente
 
                     cadena_rec = char_encoding.Decode(bytes_rec);
                 }
-                Console.WriteLine("\nCadena reenviada por el servidor: " + cadena_rec);
+                Console.WriteLine("Cadena reenviada por el servidor: " + cadena_rec);
             }
             catch (Exception e)
             {

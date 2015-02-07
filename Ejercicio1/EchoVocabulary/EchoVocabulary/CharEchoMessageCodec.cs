@@ -15,7 +15,7 @@ namespace EchoVocabulary
 
         public String Decode(byte[] array)
         {
-            return Encoding.UTF8.GetString(array, 0, array.Length);
+            return Encoding.UTF8.GetString(array, 0, array.Length-1);
         }
     }
 }
