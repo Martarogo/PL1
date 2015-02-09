@@ -103,7 +103,7 @@ namespace Cliente
 
                         netStream.Read(bytes_rec, 0, bytes_rec.Length);
 
-                        cadena_rec = encoding.Decode(bytes_rec);
+                        cadena_rec = char_encoding.Decode(bytes_rec);
                     }
                     catch (Exception e)
                     {
