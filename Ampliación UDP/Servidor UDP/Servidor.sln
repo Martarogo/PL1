@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Servidor UDP", "Servidor\Servidor UDP.csproj", "{0F83E123-6894-4CD8-8AB7-3D441E135F26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EchoVocabulary", "..\EchoVocabulary\EchoVocabulary\EchoVocabulary.csproj", "{3D1FC27D-DED0-4319-8848-503D8D96E44A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestServidor", "TestServidor\TestServidor.csproj", "{526A7042-C405-4069-AAAB-3701E64CD20F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0F83E123-6894-4CD8-8AB7-3D441E135F26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F83E123-6894-4CD8-8AB7-3D441E135F26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F83E123-6894-4CD8-8AB7-3D441E135F26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F83E123-6894-4CD8-8AB7-3D441E135F26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D1FC27D-DED0-4319-8848-503D8D96E44A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D1FC27D-DED0-4319-8848-503D8D96E44A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D1FC27D-DED0-4319-8848-503D8D96E44A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D1FC27D-DED0-4319-8848-503D8D96E44A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{526A7042-C405-4069-AAAB-3701E64CD20F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{526A7042-C405-4069-AAAB-3701E64CD20F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{526A7042-C405-4069-AAAB-3701E64CD20F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{526A7042-C405-4069-AAAB-3701E64CD20F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
