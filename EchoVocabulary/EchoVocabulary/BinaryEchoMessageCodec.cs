@@ -7,12 +7,6 @@ using System.Threading.Tasks;
 using EchoVocabulary;
 using System.Net.Sockets;
 
-public interface ICodec
-{
-    byte[] Encode(EchoMessage message);
-    String Decode(NetworkStream stream);
-}
-
 namespace EchoVocabulary
 {
     public class BinaryEchoMessageCodec: ICodec
