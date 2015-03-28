@@ -18,10 +18,11 @@ namespace Cliente
         private TcpClient tcpClient;
         private NetworkStream netStream;
         private String serverEcho;
-        private byte[] bSent;
-        private byte[] bRec = new byte[512];
-        ICodec encoding = new BinaryEchoMessageCodec();
-        //ICodec encoding = new CharEchoMessageCodec();
+        private byte[] receivedBytes = new byte[512];
+        private String messageText = "Hola";
+
+        //ICodec encoding = new BinaryEchoMessageCodec();
+        ICodec encoding = new CharEchoMessageCodec();
 
         public void Run()
         {
@@ -31,9 +32,7 @@ namespace Cliente
                 tcpClient = new TcpClient(HOST, PORT);
                 netStream = tcpClient.GetStream();
 
-                String text = WriteText();
-
-                EchoMessage message = CreateMessage(text);
+                EchoMessage message = CreateMessage(messageText);
 
                 ProcessMessage(message); 
             }
@@ -47,20 +46,12 @@ namespace Cliente
                 netStream.Close();
                 tcpClient.Close();
             }
-
-            //Para mantener la consola abierta hasta que se pulse una tecla:
             Console.ReadKey();
         }
 
         private EchoMessage CreateMessage(String text)
         {
             return new EchoMessage(text);
-        }
-
-        private String WriteText()
-        {
-            Console.WriteLine("Escribe el texto que quieres enviar: ");
-            return Console.ReadLine();
         }
 
         private void ProcessMessage(EchoMessage msg)

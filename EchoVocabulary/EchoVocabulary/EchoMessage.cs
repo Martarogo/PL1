@@ -12,22 +12,6 @@ namespace EchoVocabulary
         private String _date;
         private String _EchoMessage;
 
-        public String message
-        {
-            get
-            {
-                return _message;
-            }
-        }
-
-        public String date
-        {
-            get
-            {
-                return _date;
-            }
-        }
-
         public String Message
         {
             get

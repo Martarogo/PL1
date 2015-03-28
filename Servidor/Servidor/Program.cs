@@ -14,11 +14,9 @@ namespace Servidor
     class Server
     {
         private readonly String[] SEPARATOR = { " | " };
-        private String receivedMessage = "";
-        private int nRec;
-        private byte[] bSent, bRec = new byte[256];
-        ICodec encoding = new BinaryEchoMessageCodec();
-        //ICodec encoding = new CharEchoMessageCodec();
+        private byte[] sentBytes;
+        //ICodec encoding = new BinaryEchoMessageCodec();
+        ICodec encoding = new CharEchoMessageCodec();
 
         public void Run()
         {
@@ -49,19 +47,11 @@ namespace Servidor
 
                     netStream = client.GetStream();
 
-                    //netStream.Read(bytes_rec, 0, bytes_rec.Length);
+                    String receivedMessage = Decode(netStream);
 
-                    receivedMessage = Decode(netStream);
+                    ProcessMessage(receivedMessage);
 
-                    Console.WriteLine("Cadena recibida: " + receivedMessage);
-
-                    EchoMessage message = CreateMessage();
-
-                    Console.WriteLine("Cadena reenviada al cliente: " + message.Message);
-
-                    bSent = Encode(message);
-
-                    netStream.Write(bSent, 0, bSent.Length);
+                    netStream.Write(sentBytes, 0, sentBytes.Length);
 
                     netStream.Close();
                     client.Close();
@@ -74,6 +64,17 @@ namespace Servidor
             }
         }
 
+        private void ProcessMessage(String msg)
+        {
+            Console.WriteLine("Cadena recibida: " + msg);
+
+            EchoMessage message = CreateMessage(msg);
+
+            Console.WriteLine("Cadena reenviada al cliente: " + message.Message);
+
+            sentBytes = Encode(message);
+        }
+
         private String Decode(NetworkStream netStream)
         {
             return encoding.Decode(netStream);
@@ -84,9 +85,9 @@ namespace Servidor
             return encoding.Encode(message); ;
         }
 
-        private EchoMessage CreateMessage()
+        private EchoMessage CreateMessage(String msg)
         {
-            String[] receivedElements = receivedMessage.Split(SEPARATOR, StringSplitOptions.RemoveEmptyEntries);
+            String[] receivedElements = msg.Split(SEPARATOR, StringSplitOptions.RemoveEmptyEntries);
 
             return new EchoMessage(receivedElements[0]);
         }
