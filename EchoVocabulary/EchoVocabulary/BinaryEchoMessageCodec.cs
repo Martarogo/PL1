@@ -26,18 +26,8 @@ namespace EchoVocabulary
         public String Decode(NetworkStream stream)
         {
             BinaryReader reader = new BinaryReader(stream);
+
             return reader.ReadString();
         }
-
-        /*
-        public int nDecode(byte[] b)
-        {
-            using (MemoryStream ms = new MemoryStream(b))
-            using (BinaryReader reader = new BinaryReader(ms))
-            {
-                return reader.ReadInt32();
-            }
-        }
-        */
     }
 }

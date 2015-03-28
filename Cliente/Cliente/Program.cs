@@ -12,32 +12,30 @@ namespace Cliente
 {
     class Client
     {
-        //Variables:
         private readonly String HOST = "localhost";
         private readonly int PORT = 23456;
-        private readonly int TIEMPOMAX = 1000;
-        private TcpClient clienteTCP;
+        private readonly int MAXTIME = 1000;
+        private TcpClient tcpClient;
         private NetworkStream netStream;
-        private String strRec;
+        private String serverEcho;
         private byte[] bSent;
         private byte[] bRec = new byte[512];
+        ICodec encoding = new BinaryEchoMessageCodec();
+        //ICodec encoding = new CharEchoMessageCodec();
 
-        //Run:
         public void Run()
         {
             try
             {
                 //Crear conexión:
-                clienteTCP = new TcpClient(HOST, PORT);
-                netStream = clienteTCP.GetStream();
+                tcpClient = new TcpClient(HOST, PORT);
+                netStream = tcpClient.GetStream();
 
-                //Mensaje de inicio + introducir mensaje:
-                Console.WriteLine("Escribe el texto que quieres enviar: ");
-                String str = Console.ReadLine();
+                String text = WriteText();
 
-                EchoMessage msg = new EchoMessage(str);
+                EchoMessage message = CreateMessage(text);
 
-                processMessage(msg); 
+                ProcessMessage(message); 
             }
             catch (Exception e)
             {
@@ -47,22 +45,28 @@ namespace Cliente
             finally
             {
                 netStream.Close();
-                clienteTCP.Close();
+                tcpClient.Close();
             }
 
             //Para mantener la consola abierta hasta que se pulse una tecla:
             Console.ReadKey();
-        }//Fin Run
+        }
 
-        private void processMessage(EchoMessage msg)
+        private EchoMessage CreateMessage(String text)
         {
-            //Pasar el mensaje a binario
-            //ICodec coding = new BinaryEchoMessageCodec();
-            ICodec coding = new CharEchoMessageCodec();
+            return new EchoMessage(text);
+        }
 
-            //Enconde incluye la fecha de envio en el mensaje, y devuelve el array de bytes
-            byte[] bSent = coding.Encode(msg);
+        private String WriteText()
+        {
+            Console.WriteLine("Escribe el texto que quieres enviar: ");
+            return Console.ReadLine();
+        }
 
+        private void ProcessMessage(EchoMessage msg)
+        {
+            byte[] bSent = Encode(msg);
+            
             Console.WriteLine("Cadena enviada al servidor: " + msg.Message);
 
             //Envío de los datos codificados:
@@ -71,19 +75,26 @@ namespace Cliente
             //Esperar la respuesta:
             try
             {
-                //Arrancar temporizador:
-                clienteTCP.ReceiveTimeout = TIEMPOMAX;
+                tcpClient.ReceiveTimeout = MAXTIME;
 
-                //Leer datos y decodificar:
-                strRec = coding.Decode(netStream);
+                serverEcho = Decode(netStream);
             }
             catch (Exception e)
             {
                 processException(e);               
             }
-            Console.WriteLine("Cadena reenviada por el servidor: " + strRec);
-        }//Fin comoBits
+            Console.WriteLine("Cadena reenviada por el servidor: " + serverEcho);
+        }
 
+        private byte[] Encode(EchoMessage msg) 
+        {
+            return encoding.Encode(msg);
+        }
+
+        private String Decode(NetworkStream netStream)
+        {
+            return encoding.Decode(netStream);
+        }
 
         private void processException(Exception e)
         {
@@ -107,27 +118,28 @@ namespace Cliente
                 Console.WriteLine("Error: " + e.Message);
             }
         }//Fin processException
+    }
 
-        class Program
+
+    class Program
+    {
+        static void Main(string[] args)
         {
-            static void Main(string[] args)
-            {
-                const int N = 1;
+            const int N = 1;
 
-                // Se crean los hilos
-                Thread[] threads = new Thread[N];
-                for (int i = 0; i < N; i++)
-                {
-                    Client client = new Client();
-                    threads[i] = new Thread(new ThreadStart(client.Run));
-                    threads[i].Start();
-                }
-                // Se espera a que los hilos terminen
-                for (int i = 0; i < N; i++)
-                {
-                    threads[i].Join();
-                }
+            // Se crean los hilos
+            Thread[] threads = new Thread[N];
+            for (int i = 0; i < N; i++)
+            {
+                Client client = new Client();
+                threads[i] = new Thread(new ThreadStart(client.Run));
+                threads[i].Start();
             }
-        }//Fin clase Program
+            // Se espera a que los hilos terminen
+            for (int i = 0; i < N; i++)
+            {
+                threads[i].Join();
+            }
+        }
     }
 }

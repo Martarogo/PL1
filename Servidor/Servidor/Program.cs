@@ -14,19 +14,18 @@ namespace Servidor
     class Server
     {
         private readonly String[] SEPARATOR = { " | " };
-        private String strRec = "";
-        private String[] elemRec;
+        private String receivedMessage = "";
         private int nRec;
         private byte[] bSent, bRec = new byte[256];
+        ICodec encoding = new BinaryEchoMessageCodec();
+        //ICodec encoding = new CharEchoMessageCodec();
 
         public void Run()
         {
             Console.WriteLine("Servidor en ejecución...");
 
             TcpListener listener = null;
-            //ICodec encoding = new BinaryEchoMessageCodec();
-            ICodec encoding = new CharEchoMessageCodec();
-
+            
             try
             {
                 listener = new TcpListener(IPAddress.Any, 23456);
@@ -52,17 +51,15 @@ namespace Servidor
 
                     //netStream.Read(bytes_rec, 0, bytes_rec.Length);
 
-                    strRec = encoding.Decode(netStream);
+                    receivedMessage = Decode(netStream);
 
-                    Console.WriteLine("Cadena recibida: " + strRec);
-                        
-                    elemRec = strRec.Split(SEPARATOR, StringSplitOptions.RemoveEmptyEntries);
+                    Console.WriteLine("Cadena recibida: " + receivedMessage);
 
-                    EchoMessage mensaje = new EchoMessage(elemRec[0]);
+                    EchoMessage message = CreateMessage();
 
-                    Console.WriteLine("Cadena reenviada al cliente: " + mensaje.Message);
+                    Console.WriteLine("Cadena reenviada al cliente: " + message.Message);
 
-                    bSent = encoding.Encode(mensaje);
+                    bSent = Encode(message);
 
                     netStream.Write(bSent, 0, bSent.Length);
 
@@ -74,8 +71,24 @@ namespace Servidor
                     Console.WriteLine("Exception: {0}", e.Message);
                     netStream.Close();
                 }
-                
             }
+        }
+
+        private String Decode(NetworkStream netStream)
+        {
+            return encoding.Decode(netStream);
+        }
+
+        private byte[] Encode(EchoMessage message)
+        {
+            return encoding.Encode(message); ;
+        }
+
+        private EchoMessage CreateMessage()
+        {
+            String[] receivedElements = receivedMessage.Split(SEPARATOR, StringSplitOptions.RemoveEmptyEntries);
+
+            return new EchoMessage(receivedElements[0]);
         }
     }
 
