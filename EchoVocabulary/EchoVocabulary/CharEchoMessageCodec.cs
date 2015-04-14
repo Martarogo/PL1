@@ -14,6 +14,13 @@ namespace EchoVocabulary
             return Encoding.UTF8.GetBytes(message.Message + "\r\n");
         }
 
+        public String Decode(byte[] array)
+        {
+            String coded = Encoding.UTF8.GetString(array, 0, array.Length);
+            String dcoded = coded.Substring(0, coded.IndexOf("\r\n"));
+            return dcoded;
+        }
+
         public String Decode(NetworkStream stream)
         {
             byte[] bRec = new byte[256];

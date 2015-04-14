@@ -20,6 +20,14 @@ namespace EchoVocabulary
             }
         }
 
+        public String Date
+        {
+            get
+            {
+                return _date;
+            }
+        }
+
         public EchoMessage(String msg)
         {
             _message = msg;
