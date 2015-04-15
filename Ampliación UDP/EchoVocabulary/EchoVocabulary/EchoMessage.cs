@@ -20,7 +20,7 @@ namespace EchoVocabulary
             }
         }
 
-        public String date
+        public String Date
         {
             get
             {

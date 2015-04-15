@@ -42,6 +42,7 @@
     <Compile Include="BinaryEchoMessageCodec.cs" />
     <Compile Include="CharEchoMessageCodec.cs" />
     <Compile Include="EchoMessage.cs" />
+    <Compile Include="ICodec.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EchoVocabulary
 {
-    public class CharEchoMessageCodec: ICodec
+    public class CharEchoMessageCodec : ICodec
     {
         public byte[] Encode(EchoMessage message)
         {
@@ -15,7 +15,7 @@ namespace EchoVocabulary
 
         public String Decode(byte[] array)
         {
-            return Encoding.UTF8.GetString(array, 0, array.Length-1);
+            return Encoding.UTF8.GetString(array, 0, array.Length);
         }
     }
 }

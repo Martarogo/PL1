@@ -6,12 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using EchoVocabulary;
 
-public interface ICodec
-{
-    byte[] Encode(EchoMessage message);
-    String Decode(byte[] array);
-}
-
 namespace EchoVocabulary
 {
     public class BinaryEchoMessageCodec: ICodec
