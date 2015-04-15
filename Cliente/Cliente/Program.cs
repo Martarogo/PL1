@@ -22,7 +22,7 @@ namespace Cliente
         private String messageText = "Hola";
 
         //ICodec encoding = new BinaryEchoMessageCodec();
-        ICodec encoding = new BinaryEchoMessageCodec();
+        ICodec encoding = new CharEchoMessageCodec();
 
         public void Run()
         {

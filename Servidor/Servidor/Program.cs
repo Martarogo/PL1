@@ -16,7 +16,7 @@ namespace Servidor
         private readonly String[] SEPARATOR = { " | " };
         private byte[] sentBytes;
         //ICodec encoding = new BinaryEchoMessageCodec();
-        ICodec encoding = new BinaryEchoMessageCodec();
+        ICodec encoding = new CharEchoMessageCodec();
 
         public void Run()
         {
