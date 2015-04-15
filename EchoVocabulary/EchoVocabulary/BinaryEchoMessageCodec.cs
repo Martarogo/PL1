@@ -29,14 +29,5 @@ namespace EchoVocabulary
 
             return reader.ReadString();
         }
-
-        public String Decode(byte[] array)
-        {
-            using (MemoryStream ms = new MemoryStream(array))
-            using (BinaryReader reader = new BinaryReader(ms))
-            {
-                return reader.ReadString();
-            }
-        }
-    }
+     }
 }

@@ -41,7 +41,6 @@
   <ItemGroup>
     <Compile Include="BinaryEchoMessageCodec.cs" />
     <Compile Include="CharEchoMessageCodec.cs" />
-    <Compile Include="CharUDPCodec.cs" />
     <Compile Include="EchoMessage.cs" />
     <Compile Include="ICodec.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
