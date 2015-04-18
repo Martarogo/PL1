@@ -13,9 +13,9 @@ namespace Servidor
 {
     class Server
     {
-        private static int CODIF = 2;
         private static String[] SEPARADOR = { " | " };
         private static int PORT = 23456;
+        private BinaryEchoMessageCodec encoding = new BinaryEchoMessageCodec();
 
         public void Run()
         {
@@ -23,8 +23,6 @@ namespace Servidor
             String cadena_rec = "";
             String[] mensaje_rec;
             byte[] bytes_cadena = new byte[256];
-            BinaryEchoMessageCodec encoding = new BinaryEchoMessageCodec();
-            CharEchoMessageCodec char_encoding = new CharEchoMessageCodec();
 
             //Inicialización de un socket UDP:
             UdpClient clienteUDP = null;
@@ -39,8 +37,7 @@ namespace Servidor
                 return;
             }
 
-            // Dirección desde donde recibir. 
-            // Se modificará tras la recepción
+            // Dirección desde donde recibir, se modificará tras la recepción
             IPEndPoint remoteIPEndPoint = new IPEndPoint(IPAddress.Any, 0);
 
             // El servidor se ejecuta infinitamente
@@ -50,11 +47,8 @@ namespace Servidor
                 {
                     // Recibir
                     byte[] bytes_rec = clienteUDP.Receive(ref remoteIPEndPoint);
-
-
                     
                     cadena_rec = encoding.Decode(bytes_rec);
-                    //cadena_rec = char_encoding.Decode(bytes_rec);
 
                     mensaje_rec = cadena_rec.Split(SEPARADOR, StringSplitOptions.RemoveEmptyEntries);
 
@@ -62,7 +56,6 @@ namespace Servidor
                     Console.WriteLine("Cadena reenviada al cliente: " + mensaje.Message);
 
                     bytes_cadena = encoding.Encode(mensaje);
-                    //bytes_cadena = char_encoding.Encode(mensaje);
 
                     // Enviar
                     clienteUDP.Send(bytes_rec, bytes_rec.Length, remoteIPEndPoint);
